@@ -3,15 +3,15 @@
 #
 # AERIS-10 Radar FPGA — Post-Synthesis ILA Debug Core Insertion
 # Target: XC7A200T-2FBG484I
-# Design: radar_system_top (Build 13 frozen netlist)
+# Design: radar_system_top (Build 16 frozen netlist)
 #
 # Usage:
 #   vivado -mode batch -source insert_ila_probes.tcl
 #
 # This script:
-#   1. Opens the post-synth DCP from Build 13
+#   1. Opens the post-synth DCP from Build 16
 #   2. Inserts 4 ILA debug cores across 2 clock domains
-#   3. Runs full implementation with Build 13 directives
+#   3. Runs full implementation with Build 16 directives
 #   4. Generates bitstream, reports, and .ltx probe file
 #
 # ILA 0: ADC Capture          — 400 MHz (rx_inst/adc/clk_400m) — up to 9 bits
@@ -41,7 +41,7 @@ set part           "xc7a200tfbg484-2"
 
 # Timestamp for output file naming
 set timestamp      [clock format [clock seconds] -format {%Y%m%d_%H%M%S}]
-set run_tag        "build13_ila_${timestamp}"
+set run_tag        "build16_ila_${timestamp}"
 
 # ILA parameters
 set ila_depth      4096
