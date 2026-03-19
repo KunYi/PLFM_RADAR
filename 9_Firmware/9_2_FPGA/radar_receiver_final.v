@@ -17,7 +17,12 @@ module radar_receiver_final (
     output wire [31:0] doppler_output,
     output wire doppler_valid,
     output wire [4:0] doppler_bin,
-    output wire [5:0] range_bin
+    output wire [5:0] range_bin,
+    
+    // Matched filter range profile output (for USB)
+    output wire signed [15:0] range_profile_i_out,
+    output wire signed [15:0] range_profile_q_out,
+    output wire range_profile_valid_out
 );
 
 // ========== INTERNAL SIGNALS ==========
@@ -215,6 +220,11 @@ assign short_chirp_imag = delayed_ref_q;
 wire signed [15:0] range_profile_i;
 wire signed [15:0] range_profile_q;
 wire range_valid;
+
+// Expose matched filter output to top level for USB range profile
+assign range_profile_i_out = range_profile_i;
+assign range_profile_q_out = range_profile_q;
+assign range_profile_valid_out = range_valid;
 
 matched_filter_multi_segment mf_dual (
     .clk(clk),

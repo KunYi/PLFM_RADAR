@@ -402,7 +402,12 @@ radar_receiver_final rx_inst (
     .doppler_output(rx_doppler_output),
     .doppler_valid(rx_doppler_valid),
     .doppler_bin(rx_doppler_bin),
-    .range_bin(rx_range_bin)
+    .range_bin(rx_range_bin),
+    
+    // Matched filter range profile (for USB)
+    .range_profile_i_out(rx_range_profile[15:0]),
+    .range_profile_q_out(rx_range_profile[31:16]),
+    .range_profile_valid_out(rx_range_valid)
 );
 
 // ============================================================================
@@ -448,10 +453,9 @@ end
 // DATA PACKING FOR USB
 // ============================================================================
 
-// For range profile, we'll use the doppler data as a placeholder
-// In a real system, this would come from the matched filter output
-assign usb_range_profile = rx_doppler_output;
-assign usb_range_valid = rx_doppler_valid;
+// Range profile from matched filter output (wired through radar_receiver_final)
+assign usb_range_profile = rx_range_profile;
+assign usb_range_valid = rx_range_valid;
 
 assign usb_doppler_real = rx_doppler_real;
 assign usb_doppler_imag = rx_doppler_imag;
